@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title></title>
+    <meta content="">
+    <style></style>
+  </head>
+  <body>
+    {% extends 'forkilla/base.html' %}
+    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'forkilla/style.css' %}" />
+    
+    {% block content %}
+        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
+        </br></br>
+
+
+        {% if city%} 
+            CITY {{city}}
+        {% endif %}
+          </br>
+        {% if category%}
+            CATEGORY = {{category}}
+        {% endif %}
+
+        {% if restaurants %}
+          
+          <h2>Restaurants</h2>
+
+          <ul>
+          <nav class="navbar navbar-light bg-light">
+              <form class="form-inline" action="{% url 'restaurants'%}" method="get">
+                <input class="form-control mr-sm-2" type="text" name="city" placeholder="Search by city" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submbit">Search</button>
+              </form>
+           </nav>
+
+          <!--
+            <form action="{% url 'restaurants'%}" method="get">
+              Search by city name: 
+              <input type="text" name="city"><br>
+          </form>
+          -->
+
+            <form action="{% url 'reservation'%}" method="get">
+                {% for restaurant in restaurants %}
+                  <a href="{% url 'restaurants' restaurant.category%}"> {{restaurant.get_human_category}}</a> <br>
+                  <a href="{% url 'details' restaurant.restaurant_number%}"> {{restaurant.name}} </a> : {{restaurant.menu_description}}
+                    <button type="submit" name="reservation" value={{restaurant.restaurant_number}}> Reserva</button>
+                    <br>
+              {% endfor %}
+              </form>
+          
+            </ul>
+          
+        {% else %}
+            <p>No restaurants are available.</p>
+        {% endif %}
+          
+
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div>
+      <h1 align="center">
+          <a href={{ "/restaurants "  }} >Forkilla </a>
+        </h1>
+      {% if authenticated%} 
+        <div align="right">
+          You are logged in as {{username}} <br>
+          <a href="{%url 'logout' %}" align="right"> Log out </a><br>
+          <a href="{%url 'reservationlist' %}"> My profile </a><br>
+        </div>
+        {% else %}
+        <div align="right">
+          <a href="{%url 'login' %}">Log in</a><br>
+          <a href="{%url 'register' %}">Register</a>
+        </div>
+        {% endif %}
+    </div>
+    <hr>
+    
+
+    {% block content %} 
+    {% endblock %}
+
+    <br><br>
+    <hr>
+    <h2>Your last viewed Restaurants</h2>
+     <br>
+ 	  <form action="{% url 'reservation'%}" method="get">
+      {% for restaurant in viewedrestaurants.restaurantinsertdate_set.all|slice:"5" reversed%}
+        <a href="{% url 'details' restaurant.restaurant.restaurant_number%}"> 	{{restaurant.restaurant.name}} </a> ({{restaurant.restaurant.rate}}) : 	{{restaurant.restaurant.menu_description}}
+        <button type="submit" name="reservation" value={{restaurant.restaurant.restaurant_number}}> 	Reserva</button>
+        <br>
+      {% endfor %}
+    </form> 
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

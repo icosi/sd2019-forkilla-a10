@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% extends 'forkilla/base.html' %}
+
+    {% block content %}
+    
+        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
+        </br></br>
+
+        <font size="6">Detailed view</font>
+        <p>Restaurant number: {{restaurant.restaurant_number}}.</p>
+        <p>Name: {{restaurant.name}}.</p>
+        <p>Menu description: {{restaurant.menu_description}}.</p>
+        <p>Average price: {{restaurant.price_average}}.</p>
+        <p>Is promoted: {{restaurant.is_promot}}.</p>
+        <p>Rate: {{restaurant.rate}}.</p>
+        <p>Category: {{restaurant.category}}.</p>
+        <p>City: {{restaurant.city}}.</p>
+        <p>Address: {{restaurant.address}}.</p>
+        <p>Country: {{restaurant.country}}.</p>
+  
+        </br></br>
+        <h2>Reviews</h2>
+
+        {% if authenticated %}
+            Leave your review 
+            <form method="POST" >
+                    {% csrf_token %}
+                    {{ reviewForm.as_p }}
+                    <button type="submit">Send review</button>
+            </form>
+            </br>
+        {% else %}
+            Log in to leave a review <br>
+        {% endif %}
+
+        <h4>Review posted by users</h4></br>
+        {% if reviews %}
+            {% for review in reviews reversed%}
+                By: {{review.author}}</br>
+                Rate: {{review.rate}}</br>
+                Message: {{review.message}}</br>               
+                </br>
+            {% endfor %}
+        {% else %}
+            </br>
+            No reviews yet
+        {% endif %}
+    
+    </br>   
+    </br>
+    {% endblock %}
+</body>
+</html>

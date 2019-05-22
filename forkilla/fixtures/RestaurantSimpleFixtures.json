@@ -1,0 +1,207 @@
+[
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 1,
+    "fields": {
+      "restaurant_number": "09186777",
+      "name": "Only Tapas",
+      "menu_description" :"TAPAS",
+      "price_average" : "30",
+      "is_promot" : "False",
+      "rate" : "10",
+      "category" : "Rice",
+      "city": "Barcelona",
+      "address": "Les Rambles, 33",
+      "country": "Spain",
+      "capacity": 40
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 2,
+    "fields": {
+      "restaurant_number": "09186666",
+      "name": "Only Pinxos",
+      "menu_description" :"PINXOS",
+      "price_average" : "130.33",
+      "is_promot" : "True",
+      "rate" : "9.6",
+      "category" : "Fusi",
+      "city": "Barcelona",
+      "address": "Gran Via de les Corts Catalanes, 495",
+      "country": "Spain",
+      "capacity": 240
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 3,
+    "fields": {
+      "restaurant_number": "09186656",
+      "name": "Restaurant Bonito",
+      "menu_description" :"PEIX",
+      "price_average" : "73.33",
+      "is_promot" : "True",
+      "rate" : "8.6",
+      "category" : "Japa",
+      "city": "Barcelona",
+      "address": "Carrer Endavant, 5",
+      "country": "Spain",
+      "capacity": 50
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 4,
+    "fields": {
+      "restaurant_number": "09123666",
+      "name": "Carn 10",
+      "menu_description" :"CARN",
+      "price_average" : "150.63",
+      "is_promot" : "False",
+      "rate" : "7",
+      "category" : "BBQ",
+      "city": "Barcelona",
+      "address": "Carrer Fals, 123",
+      "country": "Spain",
+      "capacity": 77
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 5,
+    "fields": {
+      "restaurant_number": "09111666",
+      "name": "Ca la Bruta",
+      "menu_description" :"Mediterrani",
+      "price_average" : "43.33",
+      "is_promot" : "False",
+      "rate" : "9.8",
+      "category" : "Chin",
+      "city": "Barcelona",
+      "address": "Carrer Vall Llobrega, 2",
+      "country": "Spain",
+      "capacity": 100
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 6,
+    "fields": {
+      "restaurant_number": "09117466",
+      "name": "Just Pinxos",
+      "menu_description" :"PINXOS",
+      "price_average" : "30.33",
+      "is_promot" : "False",
+      "rate" : "7.4",
+      "category" : "Medi",
+      "city": "Madrid",
+      "address": "Carrer del TTT, 45",
+      "country": "Spain",
+      "capacity": 88
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 7,
+    "fields": {
+      "restaurant_number": "70286666",
+      "name": "Restaurant Nacho",
+      "menu_description" :"NACHOS",
+      "price_average" : "26.33",
+      "is_promot" : "True",
+      "rate" : "7.4",
+      "category" : "Crep",
+      "city": "Madrid",
+      "address": "Carrer dels Nachos, 12",
+      "country": "Spain",
+      "capacity": 45
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 8,
+    "fields": {
+      "restaurant_number": "45686666",
+      "name": "Bar estudiantil",
+      "menu_description" :"BOCATA",
+      "price_average" : "23.33",
+      "is_promot" : "False",
+      "rate" : "7.4",
+      "category" : "Crep",
+      "city": "Valencia",
+      "address": "Carrer de la Universitat, 121",
+      "country": "Spain",
+      "capacity": 33
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 9,
+    "fields": {
+      "restaurant_number": "70281166",
+      "name": "La Sureña",
+      "menu_description" :"CERVESA",
+      "price_average" : "41.33",
+      "is_promot" : "True",
+      "rate" : "7.9",
+      "category" : "Hind",
+      "city": "Barcelona",
+      "address": "Carrer de la Cerves, 12",
+      "country": "Spain",
+      "capacity": 45
+    }
+  }
+,
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 10,
+    "fields": {
+      "restaurant_number": "70221766",
+      "name": "Restaurant Picaso",
+      "menu_description" :"BARBACOA",
+      "price_average" : "125.12",
+      "is_promot" : "True",
+      "rate" : "8",
+      "category" : "Egyp",
+      "city": "Barcelona",
+      "address": "Carrer de la Barbaco, 77",
+      "country": "Spain",
+      "capacity": 78
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 11,
+    "fields": {
+      "restaurant_number": "70280166",
+      "name": "La Xixonenca",
+      "menu_description" :"GELATS",
+      "price_average" : "13.33",
+      "is_promot" : "True",
+      "rate" : "8.5",
+      "category" : "Afri",
+      "city": "Barcelona",
+      "address": "Carrer del Suro, 3",
+      "country": "Spain",
+      "capacity": 13
+    }
+  },
+  {
+    "model": "forkilla.Restaurant",
+    "pk": 12,
+    "fields": {
+      "restaurant_number": "70235196",
+      "name": "Restaurant La Trinca",
+      "menu_description" :"CARN",
+      "price_average" : "186.34",
+      "is_promot" : "False",
+      "rate" : "7.1",
+      "category" : "Basq",
+      "city": "Barcelona",
+      "address": "Carrer BBQ, 88",
+      "country": "Spain",
+      "capacity": 33
+    }
+  }
+] 

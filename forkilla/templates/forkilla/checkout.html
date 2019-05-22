@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends 'forkilla/base.html' %}
+
+    {% block content %}
+
+        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
+        </br></br>
+
+        CHECKOUT TEMPLATE
+        </br>
+        {% if form_full%} 
+            Restaurant is FULL at the selected time. Try another day/hour
+        {% endif %}
+
+        {% if form_ok%} 
+            Reservation succesfull
+            </br>
+            Your reservation ID: {{reservation_id}}
+        {% endif %}
+
+    {% endblock %}
+</body>
+</html>

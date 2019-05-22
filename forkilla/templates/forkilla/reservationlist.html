@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% extends 'forkilla/base.html' %}
+
+    {% block content %}
+    
+        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
+        </br></br>
+
+        {% if reservations %}
+            <h2>Reservations:</h2>
+            <ul>
+            <form action="{% url 'reservation'%}" method="get">
+                {% for reservation in reservations %}
+                    <a href="{% url 'details' reservation.reservation.restaurant_number%}"> 	{{reservation.restaurant.name}} </a>
+                    Restaurant name: {{reservation.restaurant}}<br>
+                    Day: {{reservation.day}}<br>
+                    Hour: {{reservation.time_slot}}<br>
+                    Number of people: {{reservation.num_people}}<br>
+                    <br><br>
+                {% endfor %}
+                </form>
+            </ul>
+        
+      {% else %}
+          <p>No reservations are available.</p>
+      {% endif %}
+      <hr>
+
+      {% if reviews %}
+            <h2>My reviews:</h2>
+            <ul>
+            <form action="{% url 'reservation'%}" method="get">
+                {% for review in reviews %}
+                    <a href="{% url 'details' review.review.restaurant_number%}"> 	{{reservation.restaurant.name}} </a>
+                    Restaurant name: {{review.restaurant}}<br>
+                    Rate: {{review.rate}}<br>
+                    Message: {{review.message}}<br>
+                    <br><br>
+
+                {% endfor %}
+                </form>
+            </ul>
+        
+      {% else %}
+          <p>No reviews are available.</p>
+      {% endif %}
+
+    {% endblock %}
+</body>
+</html>
