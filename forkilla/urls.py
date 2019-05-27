@@ -3,6 +3,13 @@ from django.conf.urls import url
 
 from . import views
 from django.contrib.auth.views import login, logout
+from django.conf.urls import url, include
+from rest_framework import routers
+from forkilla import views
+
+
+router = routers.DefaultRouter()
+router.register(r'restaurants', views.RestaurantViewSet)
 
 
 urlpatterns = [
@@ -17,7 +24,8 @@ urlpatterns = [
     url(r'^accounts/login/$',  login, name='login'),
     url(r'^accounts/logout/$',  logout,  {'next_page': '/'}, name='logout'),
     url(r'^register/$', views.register, name='register'),
-    url(r'^reservationlist/$', views.reservationlist, name='reservationlist')
+    url(r'^reservationlist/$', views.reservationlist, name='reservationlist'),
 
-
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

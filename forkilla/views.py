@@ -16,6 +16,10 @@ from .forms import ReservationForm, ReviewForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
+from django.contrib.auth.models import User, Group
+from rest_framework import viewsets
+from .serializers import RestaurantSerializer
+
 # localhost:8000/admin --> user: quim       password: distribuit
 
 
@@ -280,3 +284,12 @@ def reservationlist(request):
         'viewedrestaurants': _check_session(request)
     }
     return render(request, 'forkilla/reservationlist.html', context)
+
+
+
+class RestaurantViewSet(viewsets.ModelViewSet):
+            """
+            API endpoint that allows Restaurants to be viewed or edited.
+            """
+            queryset = Restaurant.objects.all().order_by('category')
+            serializer_class = RestaurantSerializer

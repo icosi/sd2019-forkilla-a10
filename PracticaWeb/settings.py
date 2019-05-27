@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,29 +25,12 @@ SECRET_KEY = 'a$g^^-oc9_r8_($@33qsjx$@0jmmbrpm&h3*safiwqt(&w46r*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = []
 
 
 # LOGIN_REDIRECT_URL
 LOGIN_REDIRECT_URL = "/restaurants/"
 
-
-
-#Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
-
-MEDIA_URL = '/media/'
 
 
 # Application definition
@@ -61,7 +43,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
+
+REST_FRAMEWORK = {
+      # Use Django's standard `django.contrib.auth` permissions,
+      # or allow read-only access for unauthenticated users.
+      'DEFAULT_PERMISSION_CLASSES': [
+          'rest_framework.permissions.IsAuthenticatedOrReadOnly'],
+      'PAGE_SIZE': 20,
+      'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,7 +63,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'PracticaWeb.urls'
@@ -98,19 +89,13 @@ WSGI_APPLICATION = 'PracticaWeb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sd2019-forkilla',
-        'USER': 'user',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
-        'CONN_MAX_AGE': 500
-
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -145,16 +130,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
-
-
-try:
-    from forkilla.local_settings import *
-except ImportError:
-    # No local settings was found, skipping.
-    pass
-
-    
+STATIC_URL = '/static/'
