@@ -35,7 +35,6 @@ def index(request):
 
 #@login_required
 def restaurants(request,city="", category=""):
-    promoted = False
     if (city == ""):
         try:
             city = request.GET["city"]
@@ -48,7 +47,7 @@ def restaurants(request,city="", category=""):
         except:
             category = "" 
 
-    print (city)
+    promoted = Restaurant.objects.filter(is_promot=True).order_by('?')[4:]
     if (city and category):
         #restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city and category__iexact=category)            
         restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city, category__iexact=category)
@@ -56,14 +55,14 @@ def restaurants(request,city="", category=""):
                 'city': city,
                 'category': category,
                 'restaurants': restaurants_by_city_and_category,
-                'promoted': promoted,
+                'promoted': Restaurant.objects.filter(is_promot__iexact=True),
                 'viewedrestaurants': _check_session(request),
                 'authenticated': request.user.is_authenticated,
                 'username': request.user.username
             }
 
     elif city:
-        restaurants_by_city = Restaurant.objects.filter(city__iexact=city)   
+        restaurants_by_city = Restaurant.objects.filter(city__iexact=city)
         context = {
                 'city': city,
                 'restaurants': restaurants_by_city,
@@ -79,7 +78,7 @@ def restaurants(request,city="", category=""):
                 'city': "Provide a city",
                 'category': category,
                 'restaurants': restaurants_by_category,
-                'promoted': promoted,
+               'promoted': promoted,
                 'viewedrestaurants': _check_session(request),
                 'authenticated': request.user.is_authenticated,
                 'username': request.user.username
@@ -87,7 +86,6 @@ def restaurants(request,city="", category=""):
     else:
         #restaurants_by_city =  Restaurant.objects.filter(is_promot="True")
         restaurants =  Restaurant.objects.all()
-        promoted = True
         context = {
             'restaurants': restaurants,
             'promoted': promoted,
@@ -295,6 +293,8 @@ def profile(request):
 
     #reservation_json = json.dumps(list(reservations), cls=DjangoJSONEncoder)
 
+    ## IMPORTANT -- Encara hi ha un error al mostrar 'viewedrestaurants' 
+    #           amb slice:"5" a la vista
     context = {
         'authenticated': request.user.is_authenticated,
         'username': request.user.username,

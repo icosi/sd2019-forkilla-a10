@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        body{margin-top:20px;}
+
+        .comment-wrapper .panel-body {
+            max-height:650px;
+            overflow:auto;
+        }
+
+        .comment-wrapper .media-list .media img {
+            width:64px;
+            height:64px;
+            border:2px solid #e5e7e8;
+
+        }
+
+        .comment-wrapper .media-list .media {
+            border-bottom:1px dashed #efefef;
+            margin-bottom:25px;
+        }
+        .media-list {
+            background: white;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -10,51 +34,147 @@
 
     {% block content %}
     
-        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
-        </br></br>
 
-        <font size="6">Detailed view</font>
-        <p>Restaurant number: {{restaurant.restaurant_number}}.</p>
-        <p>Name: {{restaurant.name}}.</p>
-        <p>Menu description: {{restaurant.menu_description}}.</p>
-        <p>Average price: {{restaurant.price_average}}.</p>
-        <p>Is promoted: {{restaurant.is_promot}}.</p>
-        <p>Rate: {{restaurant.rate}}.</p>
-        <p>Category: {{restaurant.category}}.</p>
-        <p>City: {{restaurant.city}}.</p>
-        <p>Address: {{restaurant.address}}.</p>
-        <p>Country: {{restaurant.country}}.</p>
-  
-        </br></br>
-        <h2>Reviews</h2>
 
-        {% if authenticated %}
-            Leave your review 
-            <form method="POST" >
-                    {% csrf_token %}
-                    {{ reviewForm.as_p }}
-                    <button type="submit">Send review</button>
-            </form>
-            </br>
-        {% else %}
-            Log in to leave a review <br>
-        {% endif %}
 
-        <h4>Review posted by users</h4></br>
-        {% if reviews %}
-            {% for review in reviews reversed%}
-                By: {{review.author}}</br>
-                Rate: {{review.rate}}</br>
-                Message: {{review.message}}</br>               
-                </br>
-            {% endfor %}
-        {% else %}
-            </br>
-            No reviews yet
-        {% endif %}
-    
-    </br>   
-    </br>
+<!-- Page Content -->
+<div class="container">
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4"> {{ restaurant.name }}
+          <small>{{restaurant.category}}</small>
+        </h1>
+      
+        <!-- Portfolio Item Row -->
+        <div class="row">
+      
+          <div class="col-md-8">
+            <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+          </div>
+      
+          <div class="col-md-4">
+            <h3 class="my-3">Description</h3>
+            <p>{{restaurant.menu_description}}</p>
+            <h3 class="my-3">Rate</h3>
+            <h2 class="bold padding-bottom-7">{{restaurant.rate}} <small>/ 10</small></h2>
+            <h3 class="my-3">Price average</h3>
+            <p>{{restaurant.price_average}} €</p>
+            <h3 class="my-3">Address</h3>
+            <p>{{restaurant.address}}</p>
+            <p>{{restaurant.city}}</p>
+            <p>{{restaurant.country}}</p>
+
+
+            <ul>
+              <li>&nbsp</li>
+       
+            </ul>
+          </div>
+      
+        </div>
+        <!-- /.row -->
+      
+        <!-- Related Projects Row -->
+        <h3 class="my-4">Similar restaurants</h3>
+      
+        <div class="row">
+      
+          <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+          </div>
+      
+          <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+          </div>
+      
+          <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+          </div>
+      
+          <div class="col-md-3 col-sm-6 mb-4">
+            <a href="#">
+                  <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+                </a>
+          </div>
+      
+        </div>
+        <!-- /.row -->
+      
+      </div>
+      <!-- /.container -->
+
+
+
+
+
+      <div class="row bootstrap snippets">
+            <div class="col-md-6 col-md-offset-2 col-sm-12">
+                <div class="comment-wrapper">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            Review section
+                        </div>
+                        <div class="panel-body">
+   
+                            {% if authenticated %}
+                            <form method="POST" >
+                                    {% csrf_token %}
+                                    {{ reviewForm.as_p }}
+                                    <input type="submit" name="dsubmit" id="commentSubmit" value="Submit Comment">
+                                </form>
+                    {% else %}
+                      <p>Log in to leave a review</p>
+                    {% endif %}
+
+
+                            <div class="clearfix"></div>
+                            <hr>
+                            <div>
+                            <ul class="media-list">
+
+                                {% if reviews %}
+                                    {% for review in reviews reversed%}
+                                            <li class="media">
+                                                <a href="#" class="pull-left">
+                                                    <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                                </a>
+                                                <div class="media-body">
+                                                    <span class="text-muted pull-right">
+                                                        <small class="text-muted">30 min ago</small>
+                                                    </span>
+                                                    <strong class="text-success">{{review.author}}</strong>
+                                                    <p>
+                                                        {{review.message}}
+                                                        <h2 class="bold padding-bottom-7">{{review.rate}} <small>/ 10</small></h2>
+                                                    </p>
+                                                </div>
+                                            </li>
+
+                                    {% endfor %}
+                                {% else %}
+                                    </br>
+                                    <h3 class="my-3">No reviews yet</h3>
+                                {% endif %}
+
+                                
+                                
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+        
+
+        
     {% endblock %}
 </body>
 </html>

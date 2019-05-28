@@ -36,7 +36,7 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=50)
     menu_description = models.TextField()
     price_average = models.DecimalField(max_digits=5, decimal_places=2)
-    is_promot = models.BooleanField()
+    is_promot = models.BooleanField(default=False)
     rate = models.DecimalField(max_digits=3, decimal_places=1)
     address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)

@@ -33,10 +33,14 @@
         li a:hover {
           background-color: #111111;
         }
-      img {
+      .img-responsive {
         display: block;
         max-width: 100%;
+
         height: auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
       }
 
       .link a {
@@ -49,11 +53,11 @@
         text-transform: uppercase;
       }
 
-      .wrapper {
+      .wrapper_base {
         position: relative;
       }
 
-      .wrapper .container {
+      .wrapper_base .container {
         position: absolute;
         top: 0;
         left: 0;
@@ -65,11 +69,42 @@
         text-align: center
       }
 
-      .floatleft {
+      .floatleft_base {
           float:left;
       }
-      .floatright {
+      .floatright_base {
           float:right;
+      }
+      .cards_wrapper_base {
+            background: grey;
+        }
+
+      .center_wrapper_base {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 10px;
+          margin: 0 auto;
+          background: white;
+        }
+
+      .card_base {
+        height: 10%;
+        width: 15%;
+        border: 1px solid;
+        margin: 20px;
+        text-align: center;
+        background: white;
+
+      }
+
+      .card-title_base {
+        font-size: 14px;
+      }
+      .row_wrapper {
+        width: 100%;
+
+        align: center;
+        text-align: right;
       }
 </style>
 </head>
@@ -78,12 +113,12 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
     <div class="container-fluid">
-      <div class="row wrapper">
-        <img class="img-responsive something-img" src="{% static "forkilla/images/forkilla.jpeg" %}" />
+      <div class="row_wrapper">
+        <img class="img-responsive something-img" src="{% static "forkilla/images/forkilla_short.jpg" %}" />
         <div class="container">
           <div class="row overlay">
             <div class="col-sm-9">
-                <p style="font-size:100px;" ><a style="color:black;"href={{ "/restaurants "  }}>Forkilla</a></p>
+                <p style="font-size:100px; align-items: center" ><a style="color:black;"href={{ "/restaurants "  }}>Forkilla</a></p>
               </div>
           </div>
         </div>
@@ -92,13 +127,13 @@
 
     <div>
         <ul>
-            <div class="floatleft">
-                <li><a href="#home">Home</a></li>
+            <div class="floatleft_base">
+                <li><a href={{ "/restaurants "  }}>Home</a></li>
                 <li><a href="#news">Categories</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="#about">About</a></li>
               </div>
-              <div class="floatright">
+              <div class="floatright_base">
                   {% if authenticated%} 
                     <li><a href="{%url 'profile' %}"> My profile </a></li>
                     <li><a href="{%url 'logout' %}" align="right"> Log out </a></li>
@@ -119,11 +154,22 @@
     <h2>Your last viewed Restaurants</h2>
      <br>
  	  <form action="{% url 'reservation'%}" method="get">
-      {% for restaurant in viewedrestaurants.restaurantinsertdate_set.all|slice:"5" reversed%}
-        <a href="{% url 'details' restaurant.restaurant.restaurant_number%}"> 	{{restaurant.restaurant.name}} </a> ({{restaurant.restaurant.rate}}) : 	{{restaurant.restaurant.menu_description}}
-        <button type="submit" name="reservation" value={{restaurant.restaurant.restaurant_number}}> 	Reserva</button>
-        <br>
-      {% endfor %}
+
+        <div class="cards_wrapper_base">
+         <div class="center_wrapper_base">
+            {% for restaurant in viewedrestaurants.restaurantinsertdate_set.all|slice:"5" reversed%}
+            <div class="card_base">
+              <img class="card-img-top" src="{% static "forkilla/images/background.jpeg" %}" alt="Card image cap">
+              <div class="card-body">
+                <a class="card-title" href="{% url 'details' restaurant.restaurant.restaurant_number%}"> {{restaurant.restaurant.name}} </a>
+                <p class="card-text">{{restaurant.restaurant.menu_description}}</p>
+                <p class="card-text">{{restaurant.restaurant.city}}</p>
+                <button type="submit" name="reservation" value={{restaurant.restaurant.restaurant_number}}> Reserva</button>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
     </form> 
 
 

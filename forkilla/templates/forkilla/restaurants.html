@@ -46,11 +46,49 @@
           margin: 20px;
           text-align: center;
           background: grey;
-
+          float: none; /* Added */
+          margin-bottom: 10px; /* Added */
         }
 
         .card-title {
           font-size: 24px;
+        }
+
+        .cards_wrapper_promoted {
+            background: white;
+            
+        }
+
+        .center_wrapper_promoted {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+            margin: 0 auto;
+            background: white;
+          }
+
+        .card_promoted {
+          height: 10%;
+          width: 15%;
+          border: 1px solid;
+          text-align: center;
+          background: white;
+          margin: 0 auto; /* Added */
+          float: none; /* Added */
+          margin-bottom: 10px; /* Added */
+        }
+
+        .card-title_promoted {
+          font-size: 15px;
+        }
+        .card-text_promoted {
+          font-size: 12px;
+        }
+        .button-reserva_promoted {
+          font-size: 12px;
+        }
+        .promoted {
+          text-align: center;
         }
         </style>
     </head>
@@ -72,9 +110,38 @@
           {% if city %}
             <h2>Restaurants - City: {{city}}</h2>
           {% else %}
-              <h2>Restaurants</h2>
+              <h2>Restaurants - All</h2>
           {% endif %}
         {% endif %}
+
+        {% if promoted %}
+        <div class="promoted">
+
+        
+        <h3>Promoted</h3>
+
+        <form action="{% url 'reservation'%}" method="get">
+            <div class="cards_wrapper_promoted">
+              <div class="center_wrapper_promoted">
+                {% for restaurant in promoted %}
+                  <div class="card_promoted">
+                      <img class="card-img-top" src="{% static "forkilla/images/background.jpeg" %}" alt="Card image cap">
+                      <div class="card-body">
+                        <a class="card-title_promoted" href="{% url 'details' restaurant.restaurant_number%}"> {{restaurant.name}} </a>
+                        <p class="card-text_promoted">{{restaurant.menu_description}}</p>
+                        <p class="card-text_promoted">{{restaurant.city}}</p>
+                        <p class="card-text_promoted">{{restaurant.price_average}} €  &nbsp &nbsp &nbsp    {{restaurant.rate}}/10</p>
+                        <button class="button-reserva_promoted" type="submit" name="reservation" value={{restaurant.restaurant_number}}> Reserva</button>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </form>
+          </div>
+        {% endif %}
+
+
 
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline" action="{% url 'restaurants'%}" method="get">
@@ -87,25 +154,22 @@
         {% if restaurants %}
         
              <form action="{% url 'reservation'%}" method="get">
-                
               <div class="cards_wrapper">
                 <div class="center_wrapper">
                   {% for restaurant in restaurants %}
-                  <div class="card">
-                      <img class="card-img-top" src="{% static "forkilla/images/background.jpeg" %}" alt="Card image cap">
-                      <div class="card-body">
-                        <a class="card-title" href="{% url 'details' restaurant.restaurant_number%}"> {{restaurant.name}} </a>
-                        <p class="card-text">{{restaurant.menu_description}}</p>
-                        <p class="card-text">{{restaurant.price_average}} €  &nbsp &nbsp &nbsp    {{restaurant.rate}}/10</p>
-                        <button type="submit" name="reservation" value={{restaurant.restaurant_number}}> Reserva</button>
-
+                    <div class="card">
+                        <img class="card-img-top" src="{% static "forkilla/images/background.jpeg" %}" alt="Card image cap">
+                        <div class="card-body">
+                          <a class="card-title" href="{% url 'details' restaurant.restaurant_number%}"> {{restaurant.name}} </a>
+                          <p class="card-text">{{restaurant.menu_description}}</p>
+                          <p class="card-text">{{restaurant.city}}</p>
+                          <p class="card-text">{{restaurant.price_average}} €  &nbsp &nbsp &nbsp    {{restaurant.rate}}/10</p>
+                          <button type="submit" name="reservation" value={{restaurant.restaurant_number}}> Reserva</button>
+                        </div>
                       </div>
-                    </div>
-
-              {% endfor %}
-            </div>
-          </div>
-
+                    {% endfor %}
+                  </div>
+                </div>
               </form>
           
             </ul>

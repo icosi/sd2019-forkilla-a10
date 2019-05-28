@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .button_delete {
+            border: none;
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
     {% extends 'forkilla/base.html' %}
 
     {% block content %}
-    
-        <!-- NavBar <a href={{ "/restaurants "  }} >/restaurants</a> --> 
-        <!-- </br></br> --> 
+    <h2>Welcome to your profile {{username}}</h2>
 
+        
         {% if reservations %}
         <div class="container">
             <h2>Active reservations</h2>
@@ -23,7 +28,7 @@
                 <th>Time</th>
                 <th>Restaurant</th>
                 <th>People</th>
-                <th>Cancel</th>
+                <th>Cancel reservation</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,7 +46,7 @@
                     <th>Time</th>
                     <th>Restaurant</th>
                     <th>People</th>
-                    <th>Delete</th>
+                    <th>Delete reservation</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -65,7 +70,7 @@
                                 var tableRef = document.getElementById('table_pastReservations').getElementsByTagName('tbody')[0];
                                 var btn = document.createElement('input');
                                 btn.type = "button";
-                                btn.className = "btn";
+                                btn.className = "button_delete";
                                 btn.value = "Delete";
                                 btn.onclick = (function() {
                                     console.log("Delete")
@@ -74,7 +79,7 @@
                                 var tableRef = document.getElementById('table_activeReservations').getElementsByTagName('tbody')[0];
                                 var btn = document.createElement('input');
                                 btn.type = "button";
-                                btn.className = "btn";
+                                btn.className = "button_delete";
                                 btn.value = "Cancel";
                                 btn.onclick = (function() {
                                     console.log("Cancel")
@@ -167,7 +172,7 @@
 
                         var btn = document.createElement('input');
                         btn.type = "button";
-                        btn.className = "btn";
+                        btn.className = "button_delete";
                         btn.value = "Delete";
                         btn.onclick = (function() {
                             console.log("Delete")
