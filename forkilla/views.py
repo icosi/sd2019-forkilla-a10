@@ -20,6 +20,12 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from .serializers import RestaurantSerializer
 
+import datetime
+
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+
+
 # localhost:8000/admin --> user: quim       password: distribuit
 
 
@@ -30,9 +36,33 @@ def index(request):
 #@login_required
 def restaurants(request,city="", category=""):
     promoted = False
+    if (city == ""):
+        try:
+            city = request.GET["city"]
+        except:
+            city = ""
     
-    try:
-        city = request.GET["city"]
+    if (category == ""):
+        try:
+            category = request.GET["category"]
+        except:
+            category = "" 
+
+    print (city)
+    if (city and category):
+        #restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city and category__iexact=category)            
+        restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city, category__iexact=category)
+        context = {
+                'city': city,
+                'category': category,
+                'restaurants': restaurants_by_city_and_category,
+                'promoted': promoted,
+                'viewedrestaurants': _check_session(request),
+                'authenticated': request.user.is_authenticated,
+                'username': request.user.username
+            }
+
+    elif city:
         restaurants_by_city = Restaurant.objects.filter(city__iexact=city)   
         context = {
                 'city': city,
@@ -42,44 +72,29 @@ def restaurants(request,city="", category=""):
                 'authenticated': request.user.is_authenticated,
                 'username': request.user.username
             }
-    except:
-        if (city and category):
-            #restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city and category__iexact=category)            
-            restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city, category__iexact=category)   
-            context = {
-                    'city': city,
-                    'category': category,
-                    'restaurants': restaurants_by_city_and_category,
-                    'promoted': promoted,
-                    'viewedrestaurants': _check_session(request),
-                    'authenticated': request.user.is_authenticated,
-                    'username': request.user.username
-                }
 
-        elif city:
-            restaurants_by_city = Restaurant.objects.filter(city__iexact=city)   
-            context = {
-                    'city': city,
-                    'restaurants': restaurants_by_city,
-                    'promoted': promoted,
-                    'viewedrestaurants': _check_session(request),
-                    'authenticated': request.user.is_authenticated,
-                    'username': request.user.username
-                }
-
-        else:
-            #restaurants_by_city =  Restaurant.objects.filter(is_promot="True")
-            restaurants =  Restaurant.objects.all()
-            promoted = True
-            context = {
-                'city': city,
+    elif category:
+        restaurants_by_category = Restaurant.objects.filter(category__iexact=category)   
+        context = {
+                'city': "Provide a city",
                 'category': category,
-                'restaurants': restaurants,
+                'restaurants': restaurants_by_category,
                 'promoted': promoted,
                 'viewedrestaurants': _check_session(request),
                 'authenticated': request.user.is_authenticated,
                 'username': request.user.username
             }
+    else:
+        #restaurants_by_city =  Restaurant.objects.filter(is_promot="True")
+        restaurants =  Restaurant.objects.all()
+        promoted = True
+        context = {
+            'restaurants': restaurants,
+            'promoted': promoted,
+            'viewedrestaurants': _check_session(request),
+            'authenticated': request.user.is_authenticated,
+            'username': request.user.username
+        }
     return render(request, 'forkilla/restaurants.html', context)
 
 
@@ -272,18 +287,25 @@ def logout_view(request):
     }
     return render(request, 'registration/logged_out.html', context)
 
-def reservationlist(request):
+def profile(request):
+    Reservation.objects.order_by('day')
+
     reservations = Reservation.objects.filter(author = request.user)
     reviews = Review.objects.filter(author = request.user)
+
+    #reservation_json = json.dumps(list(reservations), cls=DjangoJSONEncoder)
 
     context = {
         'authenticated': request.user.is_authenticated,
         'username': request.user.username,
         'reservations': reservations,
+        #'reservations_json': reservations_json,
         'reviews': reviews,
-        'viewedrestaurants': _check_session(request)
+        'viewedrestaurants': _check_session(request),
+        'time': datetime.datetime.now()
+
     }
-    return render(request, 'forkilla/reservationlist.html', context)
+    return render(request, 'forkilla/profile.html', context)
 
 
 

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    {% extends 'forkilla/base.html' %}
+
+    {% block content %}
+    
+        <!-- NavBar <a href={{ "/restaurants "  }} >/restaurants</a> --> 
+        <!-- </br></br> --> 
+
+        {% if reservations %}
+        <div class="container">
+            <h2>Active reservations</h2>
+            <table id="table_activeReservations" class="table">
+            <thead>
+                <tr>
+                <th>Day</th>
+                <th>Time</th>
+                <th>Restaurant</th>
+                <th>People</th>
+                <th>Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            </table>
+        </div>
+
+        <div class="container">
+            <h2>Past reservations</h2>
+            <table id="table_pastReservations" class="table">
+                <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Restaurant</th>
+                    <th>People</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        
+            <form action="{% url 'reservation'%}" method="get">
+                {% for reservation in reservations %}
+
+                    <script>
+                            var d = new Date(); // for now
+                            var date_reservation = Date.parse("{{reservation.day }}")
+                            var reservation_time = parseInt("{{reservation.get_human_slot }}");
+                            var aux_date_reservation = new Date(date_reservation)
+
+                            aux_date_reservation.setHours(aux_date_reservation.getHours() + reservation_time)
+
+                            if ( d > aux_date_reservation) {
+                                var tableRef = document.getElementById('table_pastReservations').getElementsByTagName('tbody')[0];
+                                var btn = document.createElement('input');
+                                btn.type = "button";
+                                btn.className = "btn";
+                                btn.value = "Delete";
+                                btn.onclick = (function() {
+                                    console.log("Delete")
+                                })();
+                            } else {
+                                var tableRef = document.getElementById('table_activeReservations').getElementsByTagName('tbody')[0];
+                                var btn = document.createElement('input');
+                                btn.type = "button";
+                                btn.className = "btn";
+                                btn.value = "Cancel";
+                                btn.onclick = (function() {
+                                    console.log("Cancel")
+                                })();
+                            }
+
+                
+                            // Insert a row in the table at row index 0
+                            var newRow   = tableRef.insertRow(tableRef.rows.length);
+                
+                            // Insert a cell in the row at index 0
+                            var newCell0 = newRow.insertCell(0);
+                            var newCell1 = newRow.insertCell(1);
+                            var newCell2 = newRow.insertCell(2);
+                            var newCell3 = newRow.insertCell(3);
+                            var newCell4 = newRow.insertCell(4);
+
+                            // Append a text node to the cell
+                            var newText0  = document.createTextNode("{{reservation.day }}")
+                            var newText1  = document.createTextNode("{{reservation.get_human_slot }}")
+                            var newText2  = document.createTextNode("{{reservation.restaurant.name}}")
+                            var newText3  = document.createTextNode("{{reservation.num_people}}")
+                
+                            var link = document.createElement("a");
+                            link.setAttribute("href","{% url 'details' reservation.restaurant.restaurant_number%}")
+                            link.appendChild(newText2);
+
+                            newCell2.appendChild(link);
+
+                            newCell0.appendChild(newText0);
+                            newCell1.appendChild(newText1);
+                            //newCell2.appendChild(newText2);
+                            newCell3.appendChild(newText3);
+                            
+                            newCell4.appendChild(btn);
+                    </script>
+                {% endfor %}
+                </form>
+            </ul>
+        
+      {% else %}
+          <p>No reservations are available.</p>
+      {% endif %}
+      <hr>
+
+      {% if reviews %}
+         <div class="container">
+            <h2>Reviews</h2>
+            <table id="table_reviews" class="table">
+            <thead>
+                <tr>
+                <th>Restaurant</th>
+                <th>Message</th>
+                <th>Rate</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            </table>
+         </div>
+
+            <form action="{% url 'reservation'%}" method="get">
+                {% for review in reviews %}
+                    
+                <script>
+                        var tableRef = document.getElementById('table_reviews').getElementsByTagName('tbody')[0];
+
+            
+                        // Insert a row in the table at row index 0
+                        var newRow   = tableRef.insertRow(tableRef.rows.length);
+            
+                        // Insert a cell in the row at index 0
+                        var newCell0 = newRow.insertCell(0);
+                        var newCell1 = newRow.insertCell(1);
+                        var newCell2 = newRow.insertCell(2);
+                        var newCell3 = newRow.insertCell(3);
+
+                        // Append a text node to the cell
+                        var newText0  = document.createTextNode("{{review.restaurant.name}}")
+                        var newText1  = document.createTextNode("{{review.message}}")
+                        var newText2  = document.createTextNode("{{review.rate}}")
+            
+                        var link = document.createElement("a");
+                        link.setAttribute("href","{% url 'details' review.restaurant.restaurant_number%}")
+                        link.appendChild(newText0);
+
+                        newCell0.appendChild(link);
+
+                        var btn = document.createElement('input');
+                        btn.type = "button";
+                        btn.className = "btn";
+                        btn.value = "Delete";
+                        btn.onclick = (function() {
+                            console.log("Delete")
+                        })();
+
+                        //newCell0.appendChild(newText0);
+                        newCell1.appendChild(newText1);
+                        newCell2.appendChild(newText2);
+
+                        newCell3.appendChild(btn);
+                </script>
+                
+
+
+                {% endfor %}
+                </form>
+            </ul>
+        
+      {% else %}
+          <p>No reviews are available.</p>
+      {% endif %}
+
+    {% endblock %}
+</body>
+</html>

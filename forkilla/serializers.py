@@ -11,3 +11,4 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
 	'city', 'country', 'featured_photo', 'category', 
 	'capacity')
 
+

@@ -6,26 +6,109 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #333333;
+        }
+        
+        li {
+          float: left;
+        }
+        
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 16px;
+          text-decoration: none;
+        }
+        
+        li a:hover {
+          background-color: #111111;
+        }
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .link a {
+        border: 0;
+        border-radius: 0;
+        padding: 20px 35px;
+        background-color: black;
+        color: white;
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+
+      .wrapper {
+        position: relative;
+      }
+
+      .wrapper .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center
+      }
+
+      .floatleft {
+          float:left;
+      }
+      .floatright {
+          float:right;
+      }
+</style>
 </head>
 <body>
+    {% load static %}
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <div class="container-fluid">
+      <div class="row wrapper">
+        <img class="img-responsive something-img" src="{% static "forkilla/images/forkilla.jpeg" %}" />
+        <div class="container">
+          <div class="row overlay">
+            <div class="col-sm-9">
+                <p style="font-size:100px;" ><a style="color:black;"href={{ "/restaurants "  }}>Forkilla</a></p>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
     <div>
-      <h1 align="center">
-          <a href={{ "/restaurants "  }} >Forkilla </a>
-        </h1>
-      {% if authenticated%} 
-        <div align="right">
-          You are logged in as {{username}} <br>
-          <a href="{%url 'logout' %}" align="right"> Log out </a><br>
-          <a href="{%url 'reservationlist' %}"> My profile </a><br>
-        </div>
-        {% else %}
-        <div align="right">
-          <a href="{%url 'login' %}">Log in</a><br>
-          <a href="{%url 'register' %}">Register</a>
-        </div>
-        {% endif %}
+        <ul>
+            <div class="floatleft">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#news">Categories</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about">About</a></li>
+              </div>
+              <div class="floatright">
+                  {% if authenticated%} 
+                    <li><a href="{%url 'profile' %}"> My profile </a></li>
+                    <li><a href="{%url 'logout' %}" align="right"> Log out </a></li>
+                  {% else %}
+                    <li><a href="{%url 'login' %}">Log in</a></li>
+                    <li><a href="{%url 'register' %}">Register</a></li>
+                  {% endif %}
+              </div>
+          </ul>
     </div>
-    <hr>
     
 
     {% block content %} 
