@@ -104,7 +104,22 @@
         width: 100%;
 
         align: center;
-        text-align: right;
+        text-align: center;
+      }
+      .row_overlay {
+        width: 100%;
+
+        align: center;
+        text-align: center;
+      }
+      
+
+      .center-screen {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
       }
 </style>
 </head>
@@ -116,9 +131,9 @@
       <div class="row_wrapper">
         <img class="img-responsive something-img" src="{% static "forkilla/images/forkilla_short.jpg" %}" />
         <div class="container">
-          <div class="row overlay">
-            <div class="col-sm-9">
-                <p style="font-size:100px; align-items: center" ><a style="color:black;"href={{ "/restaurants "  }}>Forkilla</a></p>
+          <div class="row_overlay">
+            <div class="center-screen">
+                <p style="font-size:100px; align-items: right" ><a style="color:black;"href={{ "/restaurants "  }}>Forkilla</a></p>
               </div>
           </div>
         </div>

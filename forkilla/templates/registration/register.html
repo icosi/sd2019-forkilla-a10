@@ -1,12 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{margin-top:20px;}
 
-{% block title %}Create an account{% endblock %}
+        .comment-wrapper .panel-body {
+            max-height:650px;
+            overflow:auto;
+        }
+
+        .comment-wrapper .media-list .media img {
+            width:64px;
+            height:64px;
+            border:2px solid #e5e7e8;
+
+        }
+
+        .comment-wrapper .media-list .media {
+            border-bottom:1px dashed #efefef;
+            margin-bottom:25px;
+        }
+        .media-list {
+            background: white;
+        }
+        .button_reserva {
+            font-size: 24px;
+        }
+        .wrapper {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
 
 {% block content %}
-  <h1>Create an account</h1>
 
-  <form action="" method="post">
+
+
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+
+  <div class="wrapper">
+  <form class="form-horizontal" action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-      <input type="submit" value="Create the account">
+    <fieldset>
+      <div id="legend">
+        <legend class="">Register</legend>
+      </div>
+      {{ form.as_p }}
+
+      <button class="btn btn-success">Register</button>&nbsp&nbsp&nbsp&nbsp
+      <a class="underlineHover" href="{{ "/restaurants "  }}">Back</a>
+
+    </fieldset>
   </form>
+
+</div>
+
+
 {% endblock %}
+</body>
+</html>

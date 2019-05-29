@@ -25,6 +25,10 @@
         .media-list {
             background: white;
         }
+        .button_reserva {
+            font-size: 24px;
+        }
+       
 
     </style>
 </head>
@@ -64,11 +68,12 @@
             <p>{{restaurant.city}}</p>
             <p>{{restaurant.country}}</p>
 
+            <form action="{% url 'reservation'%}" method="get">
 
-            <ul>
-              <li>&nbsp</li>
-       
-            </ul>
+                <button class="button_reserva" type="submit" name="reservation" value={{restaurant.restaurant_number}}> Reserva</button>
+            </form>
+
+            
           </div>
       
         </div>

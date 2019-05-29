@@ -1,17 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            body{margin-top:20px;}
+    
+            .button {
+                font-size: 20px;
+            }
+    
+        </style>
+    </head>
 
+    <body>
 {% extends 'forkilla/base.html' %}
 
 {% block content %}
     
     <h2> Starting reservation for restaurant {{restaurant.name}}</h2>
-        NavBar <a href={{ "/restaurants "  }} >/restaurants</a>
         </br></br>
         
         <form method="POST" >
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Save</button>
+            <button class="button" type="submit">Save</button>
         </form>
 
 {% endblock %}
        
+</body>
+</html>

@@ -315,3 +315,6 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             """
             queryset = Restaurant.objects.all().order_by('category')
             serializer_class = RestaurantSerializer
+
+
+## IMPORTANT -- Sessio 3, Homework 10

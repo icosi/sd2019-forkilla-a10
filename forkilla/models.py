@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from datetime import datetime
-from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 
@@ -94,7 +94,7 @@ class Meta:
 
 class Review(models.Model):
     id_review = models.AutoField(primary_key=True)
-    rate = models.DecimalField(max_digits=3, decimal_places=1)
+    rate = models.PositiveIntegerField(validators=[MaxValueValidator(10),MinValueValidator(1)])
     message = models.TextField()
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
