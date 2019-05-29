@@ -308,6 +308,12 @@ def profile(request):
     return render(request, 'forkilla/profile.html', context)
 
 
+def handler404(request):
+    print("SAFDA")
+    return redirect('homepage')
+
+def handler500(request):
+    return render(request, '500.html', status=500)
 
 class RestaurantViewSet(viewsets.ModelViewSet):
             """
@@ -317,4 +323,4 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             serializer_class = RestaurantSerializer
 
 
-## IMPORTANT -- Sessio 3, Homework 10
+## IMPORTANT -- Sessio 3, Homework 9 i 10

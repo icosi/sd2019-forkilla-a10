@@ -8,6 +8,10 @@ from rest_framework import routers
 from forkilla import views
 
 
+def response_error_handler(request, exception=None):
+    return HttpResponse('Error handler content', status=403)
+
+
 router = routers.DefaultRouter()
 router.register(r'restaurants', views.RestaurantViewSet)
 
@@ -29,3 +33,6 @@ urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
+
+handler404 = views.handler404
+handler500 = views.handler500
