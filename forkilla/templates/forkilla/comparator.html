@@ -225,6 +225,16 @@
              
                     }
 
+                    function range(start, end)
+                    {
+                        var array = new Array();
+                        for(var i = start; i < end; i++)
+                        {
+                            array.push(i);
+                        }
+                        return array;
+                    }
+                        
                     function errorHandler(e){
                         alert("Error: " + e.description);
                     }
