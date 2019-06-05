@@ -8,6 +8,10 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'forkilla/static/forkilla/images/{0}/{1}'.format(instance.restaurant_number, filename)
+
 # Create your models here.
 class Restaurant(models.Model):
     CATEGORIES = (
@@ -41,13 +45,17 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
-    featured_photo = models.ImageField()
+    featured_photo = models.ImageField(upload_to=user_directory_path)
     category = models.CharField(max_length=5, choices=CATEGORIES)
     capacity = models.PositiveIntegerField()
     
     def get_human_category(self):
         return self._d_categories[self.category]
-        
+    
+    def get_static_path(self):
+        x = str(self.featured_photo)
+        return x[15:]
+
     def __str__(self):
         return ('[**Promoted**]' if self.is_promot else '') + "[" + self.category + "] " \
                 "[" + self.restaurant_number + "] " + self.name + " - " + self.menu_description + " (" + str(self.rate) + ")" \
