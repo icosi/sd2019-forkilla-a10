@@ -19,7 +19,7 @@ from django.contrib import auth
 
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from .serializers import RestaurantSerializer
+from .serializers import RestaurantSerializer, ReviewSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser,IsAuthenticated
@@ -29,6 +29,9 @@ import datetime
 
 import json
 from django.core.serializers.json import DjangoJSONEncoder
+
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 # localhost:8000/admin --> user: quim       password: distribuit
@@ -40,6 +43,10 @@ def index(request):
 
 #@login_required
 def restaurants(request,city="", category=""):
+
+    search_field = request.GET.get('search', '')
+    print("search field: ",search_field)
+
     if (city == ""):
         try:
             city = request.GET["city"]
@@ -52,54 +59,25 @@ def restaurants(request,city="", category=""):
         except:
             category = "" 
 
-    promoted = Restaurant.objects.filter(is_promot=True).order_by('?')[:4]
-    if (city and category):
-        #restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city and category__iexact=category)            
-        restaurants_by_city_and_category = Restaurant.objects.filter(city__iexact=city, category__iexact=category)
-        context = {
-                'city': city,
-                'category': category,
-                'restaurants': restaurants_by_city_and_category,
-                'promoted': promoted,
-                'viewedrestaurants': _check_session(request),
-                'authenticated': request.user.is_authenticated,
-                'username': request.user.username
-            }
 
+
+    if city and category:
+        restaurants = Restaurant.objects.filter(city__iexact=city, category__iexact=category)
     elif city:
-        restaurants_by_city = Restaurant.objects.filter(city__iexact=city)
-        context = {
-                'city': city,
-                'restaurants': restaurants_by_city,
-                'promoted': promoted,
-                'viewedrestaurants': _check_session(request),
-                'authenticated': request.user.is_authenticated,
-                'username': request.user.username
-            }
-
-    elif category:
-        restaurants_by_category = Restaurant.objects.filter(category__iexact=category)   
-        context = {
-                'city': "Provide a city",
-                'category': category,
-                'restaurants': restaurants_by_category,
-               'promoted': promoted,
-                'viewedrestaurants': _check_session(request),
-                'authenticated': request.user.is_authenticated,
-                'username': request.user.username
-            }
+        restaurants = Restaurant.objects.filter(city__iexact=city)
     else:
-        #restaurants_by_city =  Restaurant.objects.filter(is_promot="True")
-        restaurants =  Restaurant.objects.all()
-        context = {
-            'restaurants': restaurants,
-            'promoted': promoted,
-            'viewedrestaurants': _check_session(request),
-            'authenticated': request.user.is_authenticated,
-            'username': request.user.username
-        }
-    return render(request, 'forkilla/restaurants.html', context)
+        restaurants = Restaurant.objects.all()
 
+    context = {
+        'city': city,
+        'category': category,
+        'restaurants': restaurants,
+        'promoted': Restaurant.objects.filter(is_promot=True).order_by('?')[:4],
+        'viewedrestaurants': _check_session(request),
+        'authenticated': request.user.is_authenticated,
+        'username': request.user.username
+    }
+    return render(request, 'forkilla/restaurants.html', context)
 
 
 
@@ -141,7 +119,8 @@ def details(request,restaurant_number=""):
                 'reviews': reviews,
                 'reviewForm': ReviewForm(),
                 'authenticated': request.user.is_authenticated,
-                'username': request.user.username
+                'username': request.user.username,
+                'static_path': restaurant.get_static_path
             }
     except Restaurant.DoesNotExist:
         return HttpResponse("Restaurant Does not exists")
@@ -320,20 +299,38 @@ class RestaurantViewSet(viewsets.ModelViewSet):
             API endpoint that allows Restaurants to be viewed or edited.
             """
             queryset = Restaurant.objects.all().order_by('category')
-            permission_classes = [read_run_permission,Comercial_permission]
+            #permission_classes = [read_run_permission,Comercial_permission]
+            permission_classes =[Comercial_permission]
+
             serializer_class = RestaurantSerializer
             
-            def get_permissions(self):
-                if self.action == 'list' or self.action == 'destroy'or self.action == 'update' :
-                    print(self.action)
-                    permission_classes = [IsAuthenticated]
-                    print("1")
-                else:
-                    print(self.action)
-                    permission_classes = [IsAdminUser]
-                    print("2")
-                return [permission() for permission in permission_classes]
-            
+
+            def get_queryset(self):
+                """
+                Optionally restricts the returned purchases to a given user,
+                by filtering against a `username` query parameter in the URL.
+                """
+                queryset = Restaurant.objects.all()
+                category = self.request.query_params.get('category', None)
+                city = self.request.query_params.get('city', None)
+                price_average = self.request.query_params.get('price', None)
+
+                if category is not None:
+                    queryset = queryset.filter(category=category)
+                if city is not None:
+                    queryset = queryset.filter(city=city)
+                if price_average is not None:
+                    queryset = queryset.filter(price_average__lte=price_average)
+                return queryset
+
+     
+            # Detail view from /api/restaurants/{{restaurant_number}}
+            def retrieve(self, request, pk=None):
+                print ("RETRIEVE")
+                restaurant = Restaurant.objects.get(restaurant_number=pk)
+                serializer = RestaurantSerializer(restaurant)
+                return Response(serializer.data)
+
             #permission_class = [IsAdminUser,]
             #http_method_names = ['get', 'post', 'head']
 
@@ -355,21 +352,50 @@ class RestaurantViewSet(viewsets.ModelViewSet):
                 restaurant = Restaurant.objects.get(restaurant_number=pk)
                 
                 return HttpResponseRedirect('/api/restaurants')"""
-                
-def comparator(request):
-    
-    cat = Restaurant.objects.values('category').distinct()
-    context = { 'category': cat }
-    return render(request, 'forkilla/comparator.html',context)
 
 
 
-## IMPORTANT -- Sessio 3, Homework 9 i 10
-#           Agafar la foto de cada restaurant de forma dinamica WTF
-#           Error views
-#           Restfull 
+class ReviewViewSet(viewsets.ModelViewSet):
+            """
+            API endpoint that allows Restaurants to be viewed or edited.
+            """
+            queryset = Review.objects.all()
+            permission_classes = [Comercial_permission]
+            
+            serializer_class = ReviewSerializer
+
+            
+
+
+def comparator(request, ips):
+    context = {
+        'authenticated': request.user.is_authenticated,
+        'username': request.user.username,
+        'ips': ips,
+        'length': range(len(ips))
+    }
+    return render(request, 'forkilla/comparator.html', context)
+
+
+
+
+def handler404(request):
+    data = {}
+    return render(request, 'forkilla/404.html', data)
+
+
+def handler500(request):
+    data = {}
+    return render(request, 'forkilla/500.html', data)
+
+
+## IMPORTANT -- 
+#           Poder eliminar reserves i comentaris des del perfil
+#           Agafar la foto de cada restaurant de forma dinamica
+#           (Done) Error views (done. settings.py DEGUB = False)
+#           (Almost) Restfull (Falta: afegir 'snippers' als models Restaurants i Review per a que un usuari no pugui modificar un model que ha creat algu altre)
 #           Heroku
-#           Web comparator
+#           (Done) Web comparator
 
 
 #   Entrega:
