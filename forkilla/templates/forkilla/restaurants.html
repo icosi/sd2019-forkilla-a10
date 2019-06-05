@@ -125,8 +125,8 @@
               <div class="center_wrapper_promoted">
                 {% for restaurant in promoted %}
                   <div class="card_promoted">
-                      <img class="card-img-top" src="{% static "forkilla/images/background.jpeg" %}" alt="Card image cap">
-                      <div class="card-body">
+                    <img class="card-img-top" src="{{restaurant.featured_photo.url}}" alt="Card image cap">
+                    <div class="card-body">
                         <a class="card-title_promoted" href="{% url 'details' restaurant.restaurant_number%}"> {{restaurant.name}} </a>
                         <p class="card-text_promoted">{{restaurant.menu_description}}</p>
                         <p class="card-text_promoted">{{restaurant.city}}</p>
