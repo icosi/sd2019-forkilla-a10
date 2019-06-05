@@ -147,7 +147,7 @@
                         $.when(
                             {% for ip in ips %}
                                 $.ajax({
-                                    url: "http://" + "{{ip}}" + ":8000/" + api_url
+                                    url: "https://" + "{{ip}}" + ":8000/" + api_url
                                 }),
                             {% endfor %}
                         ).then(function(
