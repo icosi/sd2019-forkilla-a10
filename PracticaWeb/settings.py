@@ -164,3 +164,4 @@ MIDDLEWARE = [
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
+DISABLE_COLLECTSTATIC=1
