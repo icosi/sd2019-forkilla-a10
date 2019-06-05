@@ -157,11 +157,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media_cdn")
 
 MEDIA_URL = '/media/'
 
-MIDDLEWARE = [
-      .....
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-
-]
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
