@@ -151,7 +151,7 @@
                                 }),
                             {% endfor %}
                         ).then(function(
-                            {% for i in length %}
+                            {% for i in range(0,length) %}
                                 v{{i}},
                             {% endfor %}
                         )
@@ -176,7 +176,7 @@
                             calls.forEach(function (call) {
                                 var response = call[0];
                                 var ip = call[1];
-                                if (len.length == 1) {
+                                if ({{length}} == 1) {
                                     response.results.forEach(function (restaurant) {
                                         restaurants.push([restaurant, ip]);
                                     })

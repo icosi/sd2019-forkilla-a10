@@ -372,7 +372,7 @@ def comparator(request, ips):
         'authenticated': request.user.is_authenticated,
         'username': request.user.username,
         'ips': ips,
-        'length': range(len(ips))
+        'length': len(ips)
     }
     return render(request, 'forkilla/comparator.html', context)
 
