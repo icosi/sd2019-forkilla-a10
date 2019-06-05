@@ -1,4 +1,4 @@
-from .models import Restaurant, Review
+from .models import Restaurant
 from rest_framework import serializers
 
 
@@ -10,13 +10,5 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
 	'price_average', 'is_promot', 'rate', 'address', 
 	'city', 'country', 'featured_photo', 'category', 
 	'capacity')
-
-class ReviewSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Review
-        fields = ('id_review',
-        'rate', 'message', 'restaurant', 
-	'author')
 
 

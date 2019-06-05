@@ -39,7 +39,6 @@
     {% block content %}
     
 
-    
 
 
 <!-- Page Content -->
@@ -54,10 +53,9 @@
         <div class="row">
       
           <div class="col-md-8">
-                <img class="img-fluid" src="{{restaurant.featured_photo.url}}"/>
-            </div>
-
-          
+            <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+          </div>
+      
           <div class="col-md-4">
             <h3 class="my-3">Description</h3>
             <p>{{restaurant.menu_description}}</p>
@@ -69,8 +67,6 @@
             <p>{{restaurant.address}}</p>
             <p>{{restaurant.city}}</p>
             <p>{{restaurant.country}}</p>
-            <p>{{restaurant.featured_photo}}</p>
-            <p>{{restaurant.featured_photo.url}}</p>
 
             <form action="{% url 'reservation'%}" method="get">
 

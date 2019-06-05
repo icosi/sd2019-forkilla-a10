@@ -51,11 +51,7 @@ class Restaurant(models.Model):
     
     def get_human_category(self):
         return self._d_categories[self.category]
-    
-    def get_static_path(self):
-        x = str(self.featured_photo)
-        return x[15:]
-
+        
     def __str__(self):
         return ('[**Promoted**]' if self.is_promot else '') + "[" + self.category + "] " \
                 "[" + self.restaurant_number + "] " + self.name + " - " + self.menu_description + " (" + str(self.rate) + ")" \

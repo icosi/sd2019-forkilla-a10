@@ -1,6 +1,5 @@
 from rest_framework import permissions
 
-COMERCIAL_METHODS = ('GET', 'PUT', 'DELETE', 'POST')
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """
@@ -19,9 +18,11 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class Comercial_permission(permissions.BasePermission):
    
     def has_permission(self,request,view):
+        #permiso de lectura HEAD,GET..
         if request.method in permissions.SAFE_METHODS:
             return True
-        return request.user.groups.filter(name="Comercial").exists()
+        #comerciales
+        return request.user.groups.filter(name='Comerciales').exists()
 
 
        
@@ -32,5 +33,4 @@ class read_run_permission(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return False
     
-        return True
-
+        return request.user.groups.filter(name='Comerciales').exists()
