@@ -169,9 +169,12 @@
 
                             var test = range(0,2)
                             console.log(test)
-                            var len = {{ length }}.lenght
+                            var len = {{ length }}
                             console.log(len)
+                            console.log(len.lenght)
 
+                            console.log(calls)
+                            
                             var restaurants = []
                             calls.forEach(function (call) {
                                 var response = call[0];
