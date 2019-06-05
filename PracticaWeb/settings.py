@@ -25,7 +25,7 @@ SECRET_KEY = 'a$g^^-oc9_r8_($@33qsjx$@0jmmbrpm&h3*safiwqt(&w46r*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'segontest.herokuapp.com']
 
 
 # LOGIN_REDIRECT_URL
