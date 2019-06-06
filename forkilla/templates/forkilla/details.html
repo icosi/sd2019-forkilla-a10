@@ -57,7 +57,11 @@
         <div class="row">
       
           <div class="col-md-8">
-                <img class="img-fluid" src=""/>
+                {% if restaurant.featured_photo %}
+                    <img src="{{ person.image.url }}">
+                {% else %}
+                    <img src="http://placehold.it/500x300">
+                {% endif %}
             </div>
 
           
