@@ -13,6 +13,7 @@
       "city": "Barcelona",
       "address": "Les Rambles, 33",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 40
     }
   },
@@ -30,6 +31,7 @@
       "city": "Barcelona",
       "address": "Gran Via de les Corts Catalanes, 495",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 240
     }
   },
@@ -47,6 +49,7 @@
       "city": "Barcelona",
       "address": "Carrer Endavant, 5",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 50
     }
   },
@@ -64,6 +67,7 @@
       "city": "Barcelona",
       "address": "Carrer Fals, 123",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 77
     }
   },
@@ -81,6 +85,7 @@
       "city": "Barcelona",
       "address": "Carrer Vall Llobrega, 2",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 100
     }
   },
@@ -98,6 +103,7 @@
       "city": "Madrid",
       "address": "Carrer del TTT, 45",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 88
     }
   },
@@ -115,6 +121,7 @@
       "city": "Madrid",
       "address": "Carrer dels Nachos, 12",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 45
     }
   },
@@ -132,6 +139,7 @@
       "city": "Valencia",
       "address": "Carrer de la Universitat, 121",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 33
     }
   },
@@ -140,7 +148,7 @@
     "pk": 9,
     "fields": {
       "restaurant_number": "70281166",
-      "name": "La Sureña",
+      "name": "La Surena",
       "menu_description" :"CERVESA",
       "price_average" : "41.33",
       "is_promot" : "True",
@@ -149,6 +157,7 @@
       "city": "Barcelona",
       "address": "Carrer de la Cerves, 12",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 45
     }
   }
@@ -167,6 +176,7 @@
       "city": "Barcelona",
       "address": "Carrer de la Barbaco, 77",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 78
     }
   },
@@ -184,6 +194,7 @@
       "city": "Barcelona",
       "address": "Carrer del Suro, 3",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 13
     }
   },
@@ -201,6 +212,7 @@
       "city": "Barcelona",
       "address": "Carrer BBQ, 88",
       "country": "Spain",
+      "featured_photo":"",
       "capacity": 33
     }
   }
