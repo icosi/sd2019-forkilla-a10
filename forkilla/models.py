@@ -36,7 +36,7 @@ class Restaurant(models.Model):
     )
     _d_categories = dict(CATEGORIES)
      
-    restaurant_number = models.CharField(max_length=8, unique=True)
+    restaurant_number = models.CharField(primary_key=True, max_length=8, unique=True)
     name = models.CharField(max_length=50)
     menu_description = models.TextField()
     price_average = models.DecimalField(max_digits=5, decimal_places=2)

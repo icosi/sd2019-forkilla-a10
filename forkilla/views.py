@@ -339,13 +339,7 @@ class RestaurantViewSet(viewsets.ModelViewSet):
                 return queryset
 
      
-            # Detail view from /api/restaurants/{{restaurant_number}}
-            def retrieve(self, request, pk=None):
-                print ("RETRIEVE")
-                restaurant = Restaurant.objects.get(restaurant_number=pk)
-                serializer = RestaurantSerializer(restaurant)
-                return Response(serializer.data)
-
+            
             #permission_class = [IsAdminUser,]
             #http_method_names = ['get', 'post', 'head']
 
