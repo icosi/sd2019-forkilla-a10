@@ -122,6 +122,8 @@ def details(request,restaurant_number=""):
                 'username': request.user.username,
                 'static_path': restaurant.get_static_path
             }
+            print("HERE DETAILS GET - ending")
+
     except Restaurant.DoesNotExist:
         return HttpResponse("Restaurant Does not exists")
     return render(request, 'forkilla/details.html', context)
