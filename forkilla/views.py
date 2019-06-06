@@ -65,6 +65,9 @@ def restaurants(request,city="", category=""):
         restaurants = Restaurant.objects.filter(city__iexact=city, category__iexact=category)
     elif city:
         restaurants = Restaurant.objects.filter(city__iexact=city)
+    elif category:
+        restaurants = Restaurant.objects.filter(category__iexact=category)
+        city = "All"
     else:
         restaurants = Restaurant.objects.all()
 
