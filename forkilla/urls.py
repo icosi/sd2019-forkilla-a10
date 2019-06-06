@@ -10,7 +10,7 @@ from forkilla import views
 
 
 
-listOfAddresses = ["tercertest.herokuapp.com/"]
+listOfAddresses = ["sd2019-forkilla-a10.herokuapp.com/"]
 #listOfAddresses = ["127.0.0.1:8000/"]
 
 urlpatterns = [
