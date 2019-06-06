@@ -69,27 +69,13 @@
 
                             if ( d > aux_date_reservation) {
                                 var tableRef = document.getElementById('table_pastReservations').getElementsByTagName('tbody')[0];
-                                var btn = document.createElement('input');
-                                btn.type = "button";
-                                btn.className = "button_delete";
-                                btn.value = "Delete";
-                                btn.onclick = (function() {
-                                    console.log("Delete")
-                                })();
+                                var newRow   = tableRef.insertRow(tableRef.rows.length);                  
                             } else {
                                 var tableRef = document.getElementById('table_activeReservations').getElementsByTagName('tbody')[0];
-                                var btn = document.createElement('input');
-                                btn.type = "button";
-                                btn.className = "button_delete";
-                                btn.value = "Cancel";
-                                btn.onclick = (function() {
-                                    console.log("Cancel")
-                                })();
+                                var newRow   = tableRef.insertRow(tableRef.rows.length);        
                             }
 
-                
-                            // Insert a row in the table at row index 0
-                            var newRow   = tableRef.insertRow(tableRef.rows.length);
+
                 
                             // Insert a cell in the row at index 0
                             var newCell0 = newRow.insertCell(0);
@@ -103,10 +89,16 @@
                             var newText1  = document.createTextNode("{{reservation.get_human_slot }}")
                             var newText2  = document.createTextNode("{{reservation.restaurant.name}}")
                             var newText3  = document.createTextNode("{{reservation.num_people}}")
+                            var newText4  = document.createTextNode("Delete")
                 
                             var link = document.createElement("a");
                             link.setAttribute("href","{% url 'details' reservation.restaurant.restaurant_number%}")
                             link.appendChild(newText2);
+
+                            var cancel = document.createElement("a");
+                            cancel.className = "button_delete"
+                            cancel.setAttribute("href","/delReservation/{{reservation.id}} ")
+                            cancel.appendChild(newText4);
 
                             newCell2.appendChild(link);
 
@@ -115,7 +107,10 @@
                             //newCell2.appendChild(newText2);
                             newCell3.appendChild(newText3);
                             
-                            newCell4.appendChild(btn);
+                            newCell4.appendChild(cancel);
+                            
+
+
                     </script>
                 {% endfor %}
                 </form>
@@ -164,26 +159,25 @@
                         var newText0  = document.createTextNode("{{review.restaurant.name}}")
                         var newText1  = document.createTextNode("{{review.message}}")
                         var newText2  = document.createTextNode("{{review.rate}}")
-            
+                        var newText3  = document.createTextNode("Delete")
+
                         var link = document.createElement("a");
                         link.setAttribute("href","{% url 'details' review.restaurant.restaurant_number%}")
                         link.appendChild(newText0);
 
+                        var cancel = document.createElement("a");
+                        cancel.className = "button_delete"
+                        cancel.setAttribute("href","/delReview/{{review.id_review}} ")
+                        cancel.appendChild(newText3);
+
                         newCell0.appendChild(link);
 
-                        var btn = document.createElement('input');
-                        btn.type = "button";
-                        btn.className = "button_delete";
-                        btn.value = "Delete";
-                        btn.onclick = (function() {
-                            console.log("Delete")
-                        })();
 
                         //newCell0.appendChild(newText0);
                         newCell1.appendChild(newText1);
                         newCell2.appendChild(newText2);
 
-                        newCell3.appendChild(btn);
+                        newCell3.appendChild(cancel);
                 </script>
                 
 

@@ -187,6 +187,16 @@ def reservation(request):
         return HttpResponse("Restaurant Does not exists")
     return render(request, 'forkilla/reservation.html', context)
 
+@login_required
+def delReservation(request, reservation_id=""):
+        Reservation.objects.get(id=reservation_id).delete()  
+        return HttpResponseRedirect(reverse('profile'))
+
+
+@login_required
+def delReview(request, review_id=""):
+        Review.objects.get(id_review=review_id).delete()  
+        return HttpResponseRedirect(reverse('profile'))
 
 
 def _check_session(request):

@@ -27,6 +27,10 @@ urlpatterns = [
     url(r'^review/$', views.leftReview, name='leftReview'),
     url(r'^register/$', views.register, name='register'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^comparator$', views.comparator, {'ips': listOfAddresses},name='comparator')
+    url(r'^comparator$', views.comparator, {'ips': listOfAddresses},name='comparator'),
+
+    url(r'^delReservation/(?P<reservation_id>.*)/$', views.delReservation,name='delReservation'),
+    url(r'^delReview/(?P<review_id>.*)/$', views.delReview,name='delReview')
+
 ]
 
