@@ -83,7 +83,6 @@ def restaurants(request,city="", category=""):
 
 def details(request,restaurant_number=""):
     #del request.session["restaurant_number"]
-    print("yea")
     request.session["restaurant_number"] = restaurant_number
 
     try:
@@ -107,6 +106,7 @@ def details(request,restaurant_number=""):
             return HttpResponseRedirect(reverse('details', args=(restaurant_number,)))
 
         elif request.method == "GET":
+            print("HERE DETAILS GET")
             viewedrestaurants = _check_session(request)
             restaurant = Restaurant.objects.get(restaurant_number=restaurant_number)
             lastviewed = RestaurantInsertDate(viewedrestaurants=viewedrestaurants,restaurant= restaurant)
