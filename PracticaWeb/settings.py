@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'a$g^^-oc9_r8_($@33qsjx$@0jmmbrpm&h3*safiwqt(&w46r*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost','127.0.0.1', 'tercertest.herokuapp.com']
+ALLOWED_HOSTS = ['localhost','127.0.0.1', 'herokuapp.com']
 
 
 # LOGIN_REDIRECT_URL
@@ -105,12 +105,7 @@ DATABASES = {
         'CONN_MAX_AGE': 500
     }
 }
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}"""
+
 
 
 # Password validation
