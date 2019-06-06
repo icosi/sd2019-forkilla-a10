@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['localhost','127.0.0.1', 'herokuapp.com']
 
 # LOGIN_REDIRECT_URL
 LOGIN_REDIRECT_URL = "/restaurants/"
+LOGOUT_REDIRECT_URL = "/restaurants/"
 
 
 

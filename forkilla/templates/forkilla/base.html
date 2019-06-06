@@ -33,6 +33,15 @@
         li a:hover {
           background-color: #111111;
         }
+
+        li b {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 16px;
+          text-decoration: none;
+        }
+        
       .img-responsive {
         display: block;
         max-width: 100%;
@@ -138,12 +147,12 @@
         <ul>
             <div class="floatleft_base">
                 <li><a href={{ "/restaurants "  }}>Home</a></li>
-                <li><a href="#about">Categories</a></li>
                 <li><a href={{ "/comparator "  }}>Comparator</a></li>
                 <li><a href="#about">About</a></li>
               </div>
               <div class="floatright_base">
                   {% if authenticated%} 
+                    <li> <b>Welcome back, {{username}} </b></li>
                     <li><a href="{%url 'profile' %}"> My profile </a></li>
                     <li><a href="{%url 'logout' %}" align="right"> Log out </a></li>
                   {% else %}
